@@ -1,1 +1,125 @@
+/* ========== import Montserrat & Noto Serif Georgian from Google Fonts ========== */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Noto+Serif+Georgian:wght@400&display=swap");
+
 @import "tailwindcss";
+
+/* ========== Custom Tailwind ========== */
+@theme {
+  /* 🎨 Colors */
+  --color-primary-lightest: #e8eff8;
+  --color-primary-lighter: #6292cf;
+  --color-primary-defult: #145db8;
+  --color-primary-darker: #0e4283;
+  --color-primary-darkest: #08274d;
+
+  --color-neutral-lightest: #f5f6f7;
+  --color-neutral-lighter: #bbc1c7;
+  --color-neutral-defult: #99a2ab;
+  --color-neutral-darker: #6d7379;
+  --color-neutral-darkest: #404448;
+
+  --color-secondary-lightest: #b2b7be;
+  --color-secondary-lighter: #586372;
+  --color-secondary-defult: #05162c;
+  --color-secondary-darker: #04101f;
+  --color-secondary-darkest: #020912;
+
+  /* Font Family */
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-georgain: "Noto Serif Georgian", serif;
+
+  /* 🧠 Font Sizes */
+  --text-heading1: 2.5rem; /* 40px */
+  --text-heading2: 2rem; /* 32px */
+  --text-heading3: 1.5rem; /* 24px */
+  --text-subHeading: 1.25rem; /* 20px */
+  --text-button: 1rem; /* 16px */
+  --text-caption: 0.875rem; /* 14px */
+  --text-smallCaption: 0.75rem; /* 12px */
+
+  /* 🪜 Font Weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+
+  /* Border Radius */
+  --radius-30: 30px;
+  --radius-28: 28px;
+  --radius-24: 24px;
+  --radius-23: 23px;
+  --radius-20: 20px;
+  --radius-14: 14px;
+  --radius-12: 12px;
+  --radius-10: 10px;
+  --radius-8: 8px;
+  --radius-circle: 50%;
+}
+
+/* ========== Reset ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ========== colors and fonts ========== */
+:root {
+  /* 🎨 Colors */
+  --primary-lightest: #e8eff8;
+  --primary-lighter: #6292cf;
+  --primary-defult: #145db8;
+  --primary-darker: #0e4283;
+  --primary-darkest: #08274d;
+
+  --neutral-lightest: #f5f6f7;
+  --neutral-lighter: #bbc1c7;
+  --neutral-defult: #99a2ab;
+  --neutral-darker: #6d7379;
+  --neutral-darkest: #404448;
+
+  --secondary-lightest: #b2b7be;
+  --secondary-lighter: #586372;
+  --secondary-defult: #05162c;
+  --secondary-darker: #04101f;
+  --secondary-darkest: #020912;
+
+  /* Font Family */
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-georgain: "Noto Serif Georgian", serif;
+
+  /* 🧠 Font Sizes */
+  --font-heading1: 2.5rem; /* 40px */
+  --font-heading2: 2rem; /* 32px */
+  --font-heading3: 1.5rem; /* 24px */
+  --font-subHeading: 1.25rem; /* 20px */
+  --font-button: 1rem; /* 16px */
+  --font-caption: 0.875rem; /* 14px */
+  --font-smallCaption: 0.75rem; /* 12px */
+
+  /* 🪜 Font Weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+
+  /* Border Radius */
+  --radius-30: 30px;
+  --radius-28: 28px;
+  --radius-24: 24px;
+  --radius-23: 23px;
+  --radius-20: 20px;
+  --radius-14: 14px;
+  --radius-12: 12px;
+  --radius-10: 10px;
+  --radius-8: 8px;
+  --radius-circle: 50%;
+}
+
+/* ========== for body ========== */
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+.footer {
+  margin-top: 2rem;
+  padding: 1rem;
+  text-align: center;
+  background-color: var(--secondary-defult);
+}
