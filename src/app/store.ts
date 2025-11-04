@@ -1,7 +1,10 @@
 import {configureStore} from "@reduxjs/toolkit";
+import doctorReducer from "../featuers/doctor/doctorSlice";
 
 export const store = configureStore({
-    reducer:{}
+   reducer: {
+    doctor: doctorReducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
