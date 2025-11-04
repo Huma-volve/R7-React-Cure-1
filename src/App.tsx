@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainLayout from "./components/layouts/MainLayout";
-import DoctorDetails from './pages/DoctorDetails/DoctorDetails';
+// import DoctorDetails from './pages/DoctorDetails/DoctorDetails';
+import Home from "./pages/Home/Home";
+import Favorite from "./pages/Favorite/Favorite";
 function App() {
   return (
     <>
@@ -11,7 +13,8 @@ function App() {
 
         {/* all pages have the same layout */}
         <Route element={<MainLayout />}>
-          <Route path="/" element={<DoctorDetails />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/favorite" element={<Favorite />} />
         </Route>
       </Routes>
     </Router>
