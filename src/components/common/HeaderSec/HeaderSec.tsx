@@ -29,7 +29,7 @@ const HeaderSec = () => {
         </div>
         
         {/* Description */}
-        <div className="max-w-3xl px-4">
+        <div className="max-w-3xl  md:px-4">
           <p className='text-center text-neutral-darker text-sm sm:text-base md:text-lg leading-relaxed' 
              style={{fontFamily:"var(--font-montserrat)", fontWeight:"var(--weight-regular)"}}>
             Easily find top-rated specialists near you and book <br /> appointments in just a few clicks. Whether you <br /> need an in-person visit consultation, we're here to <br /> connect you with the right care—fast, simple, and <br /> secure.

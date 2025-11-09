@@ -13,7 +13,7 @@ const HowItWorkSec = () => {
       </div>
       
       {/* Cards Container */}
-      <div className="flex flex-col lg:flex-row justify-center items-center lg:items-stretch gap-6 md:gap-8 lg:gap-6 xl:gap-8 max-w-7xl mx-auto">
+      <div className="flex flex-col lg:flex-row justify-center items-center lg:items-stretch gap-6 md:gap-8 lg:gap-6 xl:gap-0 max-w-7xl mx-auto">
         {/* Card 1 - Search for Doctor */}
         <div className="w-full sm:max-w-md lg:max-w-sm xl:max-w-md">
           <img 

@@ -250,3 +250,11 @@ body {
     @apply bg-background text-foreground;
   }
 }
+:root
+{
+  --color-main: #145db8;
+  --color-text: #6d7379;
+  --font-primary: 'Montserrat', sans-serif;
+  --font-secondary: 'georgia', serif;
+  --bg-main: #145db8;
+}

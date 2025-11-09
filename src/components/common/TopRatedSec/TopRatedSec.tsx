@@ -2,9 +2,27 @@ import { Button } from "../../ui/button"
 import photoDr from "../../../../public/photoDr.svg"
 import vectorStar from "../../../../public/vectorStar.svg"
 import vectorOcl from "../../../../public/vectorOcl.svg"
+import useTopDoctors from "../../../hooks/useTopDoctors"
+import IsLoading from "../Loading/IsLoading"
+import { Link } from "react-router"
+
 // import Heart from '../Heart/Heart'
 
 const TopRatedSec = () => {
+    const {topDoctors,loading,error} = useTopDoctors()
+    const displayedDoctors = topDoctors.slice(0, 3);
+    
+    if(loading){
+        return <IsLoading/>
+    }
+    if(error){
+        return<p className="text-error-defult text-center py-8">Error: {error}</p>
+    }
+    if (topDoctors.length === 0) return <p className="text-center py-8">No doctors found.</p>
+    
+    
+ 
+    
   return (
     <section className="container py-8 md:py-12 lg:py-16 px-4 md:px-6 lg:px-16">
         {/* title */}
@@ -19,36 +37,39 @@ const TopRatedSec = () => {
                 </p>
             </div>
             {/* right button */}
-            <div className="flex-shrink-0">
-                <Button 
+            <div className="shrink-0">
+                <Link to="/all-top-rate">
+                    <Button 
                     variant={"outline"} 
                     className="cursor-pointer w-[123px] h-[48px] text-primary-defult border-primary-defult hover:bg-primary-defult hover:text-white transition-colors"
                 >
                     View All
                 </Button>
+                </Link>
             </div>
         </div>
 
         {/* cards - responsive grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 lg:gap-6">
             {/* Card 1 */}
-            <div className="shadow-lg rounded-2xl overflow-hidden">
+                {displayedDoctors.map((doctor) => {
+                    return  <div key={doctor.id} className="shadow-lg rounded-2xl overflow-hidden">
                 {/* image and info */}
-                <div className="flex gap-3 md:gap-4 p-4 md:p-6">
+                <div  className="flex gap-3 md:gap-4 p-4 md:p-6">
                     <div className="shrink-0">
-                        <img src={photoDr} alt="Dr. Robert Johanson" className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full object-cover" />
+                        <img src={doctor.imgUrl } alt="Dr. Robert Johanson" className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full object-cover" />
                     </div>
                     {/* right side */}
                     <div className="flex flex-col gap-1 flex-1 min-w-0">
-                        <h3 className="font-normal text-lg md:text-xl truncate">Robert Johanson</h3>
+                        <h3 className="font-normal text-lg md:text-xl truncate">{doctor.fullName}</h3>
                         {/* <Heart/> */}
                         <p className="font-normal text-xs md:text-sm text-neutral-darker">
-                            Orthopedic | El-Nasr Hospital
+                            {doctor.specialistTitle} | {doctor.address}
                         </p>
                         <div className="flex flex-wrap gap-2 md:gap-4 items-center mt-2">
                             <div className="flex items-center gap-1">
                                 <img src={vectorStar} alt="Rating" className="w-4 h-4" />
-                                <p className="text-sm">4.9</p>
+                                <p className="text-sm">{doctor.rating}</p>
                             </div>
                             <div className="flex items-center gap-1">
                                 <img src={vectorOcl} alt="Hours" className="w-4 h-4" />
@@ -64,7 +85,7 @@ const TopRatedSec = () => {
                         <p className="text-sm md:text-base">Price/<span className="text-neutral-darker">hour</span></p>
                     </div>
                     <div>
-                        <p className="text-error-defult font-semibold text-lg md:text-xl">$350</p>
+                        <p className="text-error-defult font-semibold text-lg md:text-xl">${doctor.price}</p>
                     </div>
                 </div>
                 
@@ -77,10 +98,13 @@ const TopRatedSec = () => {
                         Book appointment
                     </Button>
                 </div>
-            </div>
+                            </div> 
+                    
+
+                })}
 
             {/* Card 2 */}
-            <div className="shadow-lg rounded-2xl overflow-hidden">
+            {/* <div className="shadow-lg rounded-2xl overflow-hidden">
                 <div className="flex gap-3 md:gap-4 p-4 md:p-6">
                     <div className="shrink-0">
                         <img src={photoDr} alt="Dr. Robert Johanson" className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full object-cover" />
@@ -120,10 +144,10 @@ const TopRatedSec = () => {
                         Book appointment
                     </Button>
                 </div>
-            </div>
+            </div> */}
 
             {/* Card 3 */}
-            <div className="shadow-lg rounded-2xl overflow-hidden">
+            {/* <div className="shadow-lg rounded-2xl overflow-hidden">
                 <div className="flex gap-3 md:gap-4 p-4 md:p-6">
                     <div className="shrink-0">
                         <img src={photoDr} alt="Dr. Robert Johanson" className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full object-cover" />
@@ -163,7 +187,7 @@ const TopRatedSec = () => {
                         Book appointment
                     </Button>
                 </div>
-            </div>
+            </div> */}
         </div>
     </section>
   )

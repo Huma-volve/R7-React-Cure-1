@@ -13,11 +13,12 @@ import {   Avatar,
     InputGroupInput,
   } from "../../components/ui/input-group"
   import "../../index.css"
+  import AvatarImg from "../../../public/Avatar.svg"
 
 
 const Navbar = () => {
   return (
-    <nav className="bg-white h-auto md:h-14 py-3 md:py-0 px-4 md:px-6 lg:px-8 flex flex-col md:flex-row justify-between md:justify-around items-center gap-4 md:gap-0">
+    <nav className="bg-white h-auto md:h-20 py-3 md:py-0 px-4 md:px-6 lg:px-8 flex flex-col md:flex-row justify-between md:justify-around items-center gap-4 md:gap-0">
       {/* heart plus */}
       <div className="shrink-0">
         <BsHeartPulse className="w-6 h-6 md:w-8 md:h-8 text-primary-defult cursor-pointer" />
@@ -40,11 +41,15 @@ const Navbar = () => {
       <div className="shrink-0">
         <div className="flex items-center gap-3 md:gap-6">
           <div className="flex gap-2 md:gap-3">
-            <FiAlignRight className="w-5 h-5 md:w-6 md:h-6 cursor-pointer bg-neutral-lightest"/>
-            <BiBell className="w-5 h-5 md:w-6 md:h-6 cursor-pointer bg-neutral-lightest"/>
+            <div className="p-2 bg-neutral-lightest rounded-md">
+              <FiAlignRight className="w-5  h-5 md:w-6 md:h-6 cursor-pointer  bg-neutral-lightest"/>
+            </div>
+            <div className="p-2 bg-neutral-lightest rounded-md">
+              <BiBell className="w-5 h-5 md:w-6 md:h-6 cursor-pointer bg-neutral-lightest"/>
+            </div>
           </div>
           <Avatar className="w-8 h-8 md:w-10 md:h-10 cursor-pointer">
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarImage src={AvatarImg} alt="@shadcn" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </div>
