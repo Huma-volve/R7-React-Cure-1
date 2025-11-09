@@ -2,11 +2,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Noto+Serif+Georgian:wght@400&display=swap");
 
 @import "tailwindcss";
+
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+    --color-error-defult:#FC4B4E;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -111,6 +113,12 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
+}
+.bgMain{
+  background-image: url(../public/bgMain.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 @layer base {
