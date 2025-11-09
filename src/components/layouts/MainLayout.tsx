@@ -9,9 +9,12 @@ const MainLayout = () => {
   return (
     <div className="flex flex-col max-w-screen-2xl ">
       <Navbar />
-      <main className="grow container mx-auto">
-        <Outlet /> {/* Render our pages here */}
+      <main className="flex-grow flex justify-center ">
+        <div className="w-[97%] sm:w-[95%] lg:w-[92%] max-w-screen-2xl">
+          <Outlet /> {/* Render our pages here */}
+        </div>
       </main>
+
       <Footer />
     </div>
   );
