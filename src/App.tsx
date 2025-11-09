@@ -4,14 +4,15 @@ import MainLayout from "./components/layouts/MainLayout";
 import DoctorDetails from "./pages/DoctorDetails/DoctorDetails";
 import ConfirmAppointment from "./pages/ConfirmAppointment/ConfirmAppointment";
 import MapPage from "./pages/Map/MapPage";
-
+import EditProfile from "./pages/Profile/EditProfile";
 
 import { Toaster } from "sonner";
 import { NotificationProvider } from "../src/components/ui/Notification/NotificationContext";
 import NotificationsPage from "./pages/Notifications/NotificationsPage";
 
+
 function App() {
-  const [count, setCount] = useState(0);
+  
 
   return (
     <>
@@ -31,6 +32,7 @@ function App() {
               <Route path="/confirm-appointment" element={<ConfirmAppointment />} />
               <Route path="map" element={<MapPage />} />
               <Route path="/notification" element={<NotificationsPage/>} />
+              <Route path="/edit-profile" element={<EditProfile/>} />
               <Route path="*" element={<div>404 Not Found</div>} />
             </Route>
           </Routes>

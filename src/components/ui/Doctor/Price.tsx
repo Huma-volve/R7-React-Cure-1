@@ -2,17 +2,24 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../../common/Button";
 import type { Doctor } from "../../../featuers/doctor/doctorTypes";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../../app/store";
+import { setSelectedDoctor } from "../../../featuers/doctor/doctorSlice";
 
 type PriceProps = {
     doctor?: Doctor;
     onBook?: (doctor?: Doctor) => void;
     className?: string;
     buttonText?: string;
+    urlLink?: string;
 };
 
-export default function Price({ doctor, onBook, className, buttonText }: PriceProps) {
+export default function Price({ doctor, onBook, className, buttonText, urlLink }: PriceProps) {
     const navigate = useNavigate();
-    const btnText = buttonText ?? "Book Appointment";
+    const btnText = buttonText ?? "Book";
+    const link = urlLink ?? "/confirm-appointment";
+    const dispatch = useDispatch<AppDispatch>();
+    console.log("Price ", doctor);
 
     // shared container classes: full width on mobile, larger card & horizontal layout on md+
     const containerCls = [
@@ -52,7 +59,7 @@ export default function Price({ doctor, onBook, className, buttonText }: PricePr
     }
 
     const currency = "USD";
-    const priceValue = doctor.price ?? 0;
+    const priceValue = doctor.pricePerHour ?? 0;
 
     const formatted = new Intl.NumberFormat(undefined, {
         style: "currency",
@@ -71,8 +78,9 @@ export default function Price({ doctor, onBook, className, buttonText }: PricePr
             <div className="mt-3 md:mt-0 md:w-64">
                 <Button
                     onClick={() => {
+                        dispatch(setSelectedDoctor(doctor)); 
                         onBook?.(doctor);
-                        navigate("/confirm-appointment");
+                        navigate(link);
                     }}
                     aria-label="Book Appointment"
                     className="w-full py-2 md:py-3"

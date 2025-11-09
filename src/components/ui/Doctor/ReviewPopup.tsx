@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "../../common/Button";
 import { Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
+import { addReview } from "../../../featuers/apis/reviewApi";
 type ReviewPopupProps = {
     onSubmit?: (payload: { rating: number; review: string }) => void;
 };
@@ -10,8 +10,8 @@ type ReviewPopupProps = {
 export default function ReviewPopup({ onSubmit }: ReviewPopupProps) {
     const [open, setOpen] = useState(false);
     const [rating, setRating] = useState(0);
-    const [review, setReview] = useState("");
-    const [submitted, setSubmitted] = useState(false); // ✅ new state
+    const [userReview, setReview] = useState("");
+    const [submitted, setSubmitted] = useState(false);
     const dialogRef = useRef<HTMLDivElement | null>(null);
     const navigate = useNavigate();
 
@@ -38,10 +38,23 @@ export default function ReviewPopup({ onSubmit }: ReviewPopupProps) {
         }
     }, [open]);
 
-    const submit = () => {
+    const submit = async () => {
         if (rating === 0) return;
-        onSubmit?.({ rating, review });
-        setSubmitted(true);
+
+        addReview({
+            // add your doctorId and patientId from login
+            doctorId: 3, 
+            patientId: 0,
+            rating: rating, 
+            review: userReview,
+        })
+            .then((data) => {
+                console.log("✅ Review added successfully:", data);
+                alert("Thanks for your review!");
+            })
+            .catch((error) => {
+                alert(error.response?.data?.message || "Failed to add review");
+            });
     };
 
     const handleDone = () => {
@@ -135,8 +148,8 @@ export default function ReviewPopup({ onSubmit }: ReviewPopupProps) {
                                                 <Star
                                                     size={24}
                                                     className={`${star <= rating
-                                                            ? "text-yellow-400 fill-yellow-400"
-                                                            : "text-gray-300 fill-transparent"
+                                                        ? "text-yellow-400 fill-yellow-400"
+                                                        : "text-gray-300 fill-transparent"
                                                         }`}
                                                 />
                                             </button>
@@ -151,7 +164,7 @@ export default function ReviewPopup({ onSubmit }: ReviewPopupProps) {
                                         Your review
                                     </label>
                                     <textarea
-                                        value={review}
+                                        value={userReview}
                                         onChange={(e) => setReview(e.target.value)}
                                         placeholder="Write your review"
                                         className="w-full h-28 resize-none rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"

@@ -1,8 +1,14 @@
-import type { Notification } from "./NotificationList";
+import type { Notification } from "./NotificationContext";
 import { CheckCircle, CalendarX, Clock } from "lucide-react";
+import { useNotifications } from "./NotificationContext";
 
-export default function NotificationItem({ notification }: { notification: Notification }) {
-  const { title, message, time, type } = notification;
+export default function NotificationItem({
+  notification,
+}: {
+  notification: Notification;
+}) {
+  const { markNotificationAsRead } = useNotifications();
+  const { id, title, message, time, type, isRead } = notification;
 
   const icon =
     type === "upcoming" ? (
@@ -21,7 +27,12 @@ export default function NotificationItem({ notification }: { notification: Notif
       : "bg-red-100 text-red-600";
 
   return (
-    <div className="flex items-start justify-between bg-gray-50 hover:bg-gray-100 rounded-xl p-4 transition">
+    <div
+      className={`flex items-start justify-between bg-gray-50 hover:bg-gray-100 rounded-xl p-4 transition ${
+        isRead ? "opacity-70" : ""
+      }`}
+      onClick={() => markNotificationAsRead(id)}
+    >
       <div className="flex items-start gap-3">
         <div className={`w-10 h-10 flex items-center justify-center rounded-full ${color}`}>
           {icon}
@@ -31,7 +42,9 @@ export default function NotificationItem({ notification }: { notification: Notif
           <p className="text-gray-500 text-sm">{message}</p>
         </div>
       </div>
-      <p className="text-xs text-gray-400 whitespace-nowrap mt-1">{time}</p>
+      <p className="text-xs text-gray-400 whitespace-nowrap mt-1">
+        {new Date(time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+      </p>
     </div>
   );
 }

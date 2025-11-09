@@ -1,41 +1,59 @@
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useEffect, useState } from "react";
 import L from "leaflet";
-import Button from "../../components/common/Button"; 
+import Button from "../../components/common/Button";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { getNearestDoctors } from "../../featuers/apis/doctorApi";
 
 const MapPage = () => {
   const [position, setPosition] = useState<[number, number] | null>(null);
   const [address, setAddress] = useState<string>("");
+  const [doctors, setDoctors] = useState<any[]>([]);
 
-  // أيقونة الدكتور أو الموقع الحالي
-  const markerIcon = new L.Icon({
+  // Map icons
+  const userIcon = new L.Icon({
     iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
     iconSize: [30, 30],
   });
 
-  // جلب الموقع الحالي
+  const doctorIcon = new L.Icon({
+    iconUrl: "https://cdn-icons-png.flaticon.com/512/4320/4320384.png",
+    iconSize: [35, 35],
+  });
+
+  // get user location and nearest doctors
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
         const { latitude, longitude } = pos.coords;
         setPosition([latitude, longitude]);
 
-        // نجيب العنوان (اختياري)
-        const response = await fetch(
-          `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
-        );
-        const data = await response.json();
-        setAddress(data.display_name);
+        // OpenStreetMap
+        try {
+          const response = await getNearestDoctors(latitude, longitude);
+          console.log("Nearest Doctors API Response:", response.data);
+          setDoctors(response.data?.data || []);
+        } catch (error) {
+          console.error("Error fetching nearest doctors:", error);
+        }
+
+
+        // get nearest doctors
+        try {
+          const response = await getNearestDoctors(latitude, longitude);
+          setDoctors(response.data?.data || []);
+        } catch (error) {
+          console.error("Error fetching nearest doctors:", error);
+        }
       },
-      (err) => console.error(err),
+      (err) => console.error("Geolocation error:", err),
       { enableHighAccuracy: true }
     );
   }, []);
 
   return (
     <div className="relative h-screen w-full">
-      {/* العنوان فوق الخريطة */}
+      {/* Title above the map */}
       <div className="absolute top-5 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-2xl p-3 z-[1000] w-[90%] flex items-center justify-between">
         <div>
           <p className="text-sm text-gray-500">Current location</p>
@@ -46,7 +64,7 @@ const MapPage = () => {
         <button className="p-2 rounded-full hover:bg-gray-100">🔍</button>
       </div>
 
-      {/* الخريطة */}
+      {/* Map */}
       {position && (
         <MapContainer
           center={position}
@@ -59,22 +77,30 @@ const MapPage = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
-          {/* موقع المستخدم */}
-          <Marker position={position} icon={markerIcon}>
+          {/*user marker */}
+          <Marker position={position} icon={userIcon}>
             <Popup>Your location</Popup>
           </Marker>
 
-          {/* دكاترة من الباك */}
-          {/* افترض إنك جايبة من الباك doctors = [{lat, lon, name}, ...] */}
-          {/* {doctors.map((d) => (
-            <Marker key={d.id} position={[d.lat, d.lon]} icon={doctorIcon}>
-              <Popup>{d.name}</Popup>
+          {/* doctors from API */}
+          {doctors.map((doc) => (
+            <Marker
+              key={doc.id || `${doc.latitude}-${doc.longitude}`}
+              position={[doc.latitude, doc.longitude]}
+              icon={doctorIcon}
+            >
+              <Popup>
+                <div className="text-center">
+                  <h3 className="font-semibold text-gray-800">{doc.name}</h3>
+                  <p className="text-sm text-gray-600">{doc.specialization}</p>
+                </div>
+              </Popup>
             </Marker>
-          ))} */}
+          ))}
         </MapContainer>
       )}
 
-      {/* زر تأكيد */}
+      {/* Confirm button */}
       <div className="absolute bottom-5 left-1/2 -translate-x-1/2 w-[90%]">
         <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl">
           Confirm location

@@ -1,9 +1,11 @@
 import {configureStore} from "@reduxjs/toolkit";
 import doctorReducer from "../featuers/doctor/doctorSlice";
+import profileReducer  from "../featuers/profile/profileSclice";
 
 export const store = configureStore({
    reducer: {
     doctor: doctorReducer,
+      profile: profileReducer,
   },
 });
 

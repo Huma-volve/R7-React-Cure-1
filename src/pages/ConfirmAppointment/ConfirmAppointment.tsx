@@ -8,8 +8,12 @@ import DocCalender from "../../components/ui/Doctor/DocCalender";
 
 const ConfirmAppointment: React.FC = () => {
     const doctor = useSelector((state: RootState) => state.doctor.selectedDoctor);
-    const initialDoctor = useSelector((state: RootState) => state.doctor.doctors[0]);
-    const displayDoctor = doctor ?? initialDoctor;
+    const displayDoctor = doctor;
+    // const initialDoctor = useSelector((state: RootState) => state.doctor);
+    // const displayDoctor = doctor ?? initialDoctor;
+console.log("doctor " , displayDoctor);
+// console.log("display doctor" , displayDoctor);
+if (!doctor) return <p>No doctor selected</p>;
 
     return (
         <div className="container">

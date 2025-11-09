@@ -1,16 +1,25 @@
 export interface Review {
-  id: number;
-  name: string;
+  // "patientId": 134,
+  //               "doctorId": 1,
+  //               "patientName": null,
+  //               "doctorName": null,
+  //               "rating": 4,
+  //               "comment": "Excellent service!",
+  //               "createdAt": "0001-01-01T00:00:00"
+  patientId: number;
+  doctorId: number;
+  patientName: string;
+  doctorName: string;
   rating: number;
   comment: string;
-  time: string;
+  createdAt: string;
 }
 
 export interface Doctor {
   selectedDoctor: any;
   id: number;
   image?: string;
-  name: string;
+  fullName: string;
   specialization: string;
   address: string;
   rating: number;
@@ -18,13 +27,13 @@ export interface Doctor {
   reviewsCount: number;
   experience: number;
   patients: number;
-  price: number;
+  pricePerHour: number;
   about: string;
   education: string;
   hospital: string;
   languages: string[];
   fee: number;
-  reviews: Review[];
+  reviews?: Review[];
 }
 export interface DoctorState {
   doctors: Doctor[];

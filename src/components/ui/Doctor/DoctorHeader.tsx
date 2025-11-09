@@ -8,10 +8,10 @@ import {
     FaUsers,
     FaHeart,
     FaRegHeart,
-    FaComments,
 } from "react-icons/fa";
-import Button from "../../common/Button";
+import doctorImg from "../../../assets/NoImageDoctor.png";
 import chat from "../../../assets/icons/chat.svg";
+import { toggleFavouriteDoctor } from "../../../featuers/apis/doctorApi";
 type DoctorHeaderProps = {
     doctor: Doctor;
 };
@@ -19,20 +19,27 @@ type DoctorHeaderProps = {
 const DoctorHeader: React.FC<DoctorHeaderProps> = ({ doctor }) => {
     const [isFavorite, setIsFavorite] = useState(false);
 
+    console.log(doctor);
 
-    const getInitials = (name: string) =>
-        name
-            .split(" ")
-            .map((n) => n[0])
-            .join("")
-            .toUpperCase();
-    const toggleFavorite = () => {
-        setIsFavorite(!isFavorite);
+    // const getInitials = (name: string) =>
+    //     name
+    //         .split(" ")
+    //         .map((n) => n[0])
+    //         .join("")
+    //         .toUpperCase();
+    const toggleFavorite = async () => {
+        try {
+            await toggleFavouriteDoctor(doctor.id); // doctor.id هو ID الدكتور الحالي
+            setIsFavorite((prev) => !prev);
+        } catch (err) {
+            console.error("Error toggling favourite:", err);
+        }
+        // setIsFavorite(!isFavorite);
     };
 
     const handleChat = () => {
-        console.log(`Start chat with ${doctor.name}`);
-        // navigate("/chat") // لو عندك صفحة شات
+        console.log(`Start chat with ${doctor.fullName}`);
+        // navigate("/chat") //  navigation to chat page
     };
     return (
         <div className="doctorImage w-full bg-white p-6 md:p-1 my-2">
@@ -42,21 +49,30 @@ const DoctorHeader: React.FC<DoctorHeaderProps> = ({ doctor }) => {
                 <div className="flex items-center justify-center lg:justify-start w-full lg:w-2/3 gap-4">
                     {/* doctor image */}
                     <div className="w-20 h-20 md:w-20 md:h-20 rounded-full ring-1  flex items-center justify-center overflow-hidden text-3xl font-bold text-primary">
-                        {doctor.image ? (
+                        {/* {doctor.image ? (
                             <img
                                 src={doctor.image}
                                 alt={doctor.name}
                                 className="w-full h-full object-cover rounded-full"
                             />
                         ) : (
-                            getInitials(doctor.name)
-                        )}
+                            <img
+                                src={doctorImg}
+                                alt="No Doctor"
+                                className="w-full h-full object-cover rounded-full"
+                            />
+                        )} */}
+                        <img
+                            src={doctor.image || doctorImg}
+                            alt={doctor.fullName || "Doctor"}
+                            className="w-full h-full object-cover rounded-full"
+                        />
                     </div>
 
                     {/* doctor info */}
                     <div className="text-left space-y-1 flex-grow">
                         <h2 className="text-xl md:text-2xl font-bold text-primary">
-                            {doctor.name}
+                            {doctor.fullName}
                         </h2>
                         <p className="text-sm text-muted-foreground">
                             {doctor.specialty}
@@ -102,7 +118,7 @@ const DoctorHeader: React.FC<DoctorHeaderProps> = ({ doctor }) => {
                     <div className="flex flex-col items-center">
                         <FaUsers className="text-primary mb-1 text-lg" />
                         <span className="font-semibold text-gray-700">
-                            {doctor.patients.toLocaleString()}+
+                            {doctor.patients}+
                         </span>
                         <span className="text-xs text-muted-foreground">patients</span>
                     </div>
@@ -126,7 +142,7 @@ const DoctorHeader: React.FC<DoctorHeaderProps> = ({ doctor }) => {
                     <div className="flex flex-col items-center">
                         <FaCommentDots className="text-primary mb-1 text-lg" />
                         <span className="font-semibold text-gray-700">
-                            {doctor.reviews.length}
+                            {doctor.reviews?.length ?? 0}
                         </span>
                         <span className="text-xs text-muted-foreground">reviews</span>
                     </div>
