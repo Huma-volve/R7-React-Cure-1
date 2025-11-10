@@ -70,7 +70,7 @@ const DoctorHeader: React.FC<DoctorHeaderProps> = ({ doctor }) => {
                     </div>
 
                     {/* doctor info */}
-                    <div className="text-left space-y-1 flex-grow">
+                    <div className="text-left space-y-1 grow">
                         <h2 className="text-xl md:text-2xl font-bold text-primary">
                             {doctor.fullName}
                         </h2>
@@ -153,7 +153,7 @@ const DoctorHeader: React.FC<DoctorHeaderProps> = ({ doctor }) => {
 };
 
 export default DoctorHeader;
-function setIsFavorite(arg0: boolean) {
-    throw new Error("Function not implemented.");
-}
+// function setIsFavorite(arg0: boolean) {
+//     throw new Error("Function not implemented.");
+// }
 

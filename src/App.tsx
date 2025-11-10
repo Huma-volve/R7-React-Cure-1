@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainLayout from "./components/layouts/MainLayout";
 // import DoctorDetails from './pages/DoctorDetails/DoctorDetails';

@@ -1,7 +1,6 @@
 import photoDr from "../../../public/photoDr.svg"
 import vectorStar from "../../../public/vectorStar.svg"
 import vectorOcl from "../../../public/vectorOcl.svg"
-import { Link } from "react-router"
 import IsLoading from "../../components/common/Loading/IsLoading"
 import useTopDoctors from "../../hooks/useTopDoctors"
 import { Button } from "../../components/ui/button"
@@ -38,7 +37,7 @@ const AllTopRate = () => {
                     </div>
                     {/* right side */}
                     <div className="flex flex-col gap-1 flex-1 min-w-0">
-                        <h3 className="font-normal text-lg md:text-xl truncate">{doctor.fullName}</h3>
+                        <h3 className="font-normal text-secondary-defult text-lg md:text-xl truncate">{doctor.fullName}</h3>
                         {/* <Heart/> */}
                         <p className="font-normal text-xs md:text-sm text-neutral-darker">
                             {doctor.specialistTitle} | {doctor.address}
@@ -46,9 +45,9 @@ const AllTopRate = () => {
                         <div className="flex flex-wrap gap-2 md:gap-4 items-center mt-2">
                             <div className="flex items-center gap-1">
                                 <img src={vectorStar} alt="Rating" className="w-4 h-4" />
-                                <p className="text-sm">{doctor.rating}</p>
+                                <p className="text-sm text-secondary-defult">{doctor.rating}</p>
                             </div>
-                            <div className="flex items-center gap-1">
+                            <div className="flex items-center gap-1 text-secondary-defult">
                                 <img src={vectorOcl} alt="Hours" className="w-4 h-4" />
                                 <p className="text-xs md:text-sm">9:30am - 8:00pm</p>
                             </div>
@@ -59,7 +58,7 @@ const AllTopRate = () => {
                 {/* price and hour */}
                 <div className="flex justify-between py-3 px-4 md:px-6 items-center border-t">
                     <div>
-                        <p className="text-sm md:text-base">Price/<span className="text-neutral-darker">hour</span></p>
+                        <p className="text-sm md:text-base text-secondary-defult">Price/<span className="text-neutral-darker">hour</span></p>
                     </div>
                     <div>
                         <p className="text-error-defult font-semibold text-lg md:text-xl">${doctor.price}</p>

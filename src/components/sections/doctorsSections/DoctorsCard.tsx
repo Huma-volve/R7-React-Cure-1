@@ -24,7 +24,6 @@ const DoctorCard: React.FC<DoctorCardProps> = ({
     fullName,
     imgUrl,
     specialistTitle,
-    hospital,
     rating,
     price,
     address
@@ -54,7 +53,7 @@ const DoctorCard: React.FC<DoctorCardProps> = ({
                     </div>
 
                     {/* Doctor Image */}
-                    <Link to={`/doctors/${id}`} className="shrink-0">
+                    <Link to={`/doctor-details/${id}`} className="shrink-0">
                         <Avatar className="w-[70px] h-[70px] sm:w-[85px] sm:h-20 md:w-[95px] md:h-[90px] rounded-[10px] overflow-hidden cursor-pointer hover:scale-[1.05] transition-transform duration-300">
                             <AvatarImage
                                 className="w-[97px] h-[88px] object-cover"
@@ -88,7 +87,7 @@ const DoctorCard: React.FC<DoctorCardProps> = ({
                         </div>
 
                         {/* Default header (hidden on md, visible on lg) */}
-                        <Link to={`/doctors/${id}`} className="md:hidden lg:block">
+                        <Link to={`/doctor-details/${id}`} className="md:hidden lg:block">
                             <h3
                                 className="text-[15px] sm:text-[16px] w-fit md:text-[17px] font-semibold truncate cursor-pointer transition-colors duration-300 group-hover:text-(--color-main)"
                                 style={{ fontFamily: 'var(--font-secondary)' }}
@@ -115,12 +114,12 @@ const DoctorCard: React.FC<DoctorCardProps> = ({
                 </div>
 
                 {/* ====== Price Section ====== */}
-                <div className="flex items-center justify-between mb-4 text-sm">
+                <div className="flex items-center border-t border-[#BBC1C7] pt-4 justify-between mb-4 text-sm">
                     <span className="text-[16px]">
                         Price
                         <span className="text-[12px]">/hour</span>
                     </span>
-                    <span className="text-[16px] text-[#FC4B4E]">${price}</span>
+                    <span className="text-[16px] text-error-defult">${price}</span>
                 </div>
 
                 {/* ====== Booking Button ====== */}
@@ -139,7 +138,7 @@ const DoctorCard: React.FC<DoctorCardProps> = ({
                     >
                         {isFavorite ? 'Remove from favorite' : 'Add to favorite'}
                         {isFavorite ? (
-                            <GoHeartFill className="text-[#FC4B4E] text-[18px]" />
+                            <GoHeartFill className="text-error-defult text-[18px]" />
                         ) : (
                             <GoHeart className="text-[18px]" />
                         )}

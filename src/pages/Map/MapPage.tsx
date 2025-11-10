@@ -7,7 +7,7 @@ import { getNearestDoctors } from "../../featuers/apis/doctorApi";
 
 const MapPage = () => {
   const [position, setPosition] = useState<[number, number] | null>(null);
-  const [address, setAddress] = useState<string>("");
+  const [address] = useState<string>("");
   const [doctors, setDoctors] = useState<any[]>([]);
 
   // Map icons
