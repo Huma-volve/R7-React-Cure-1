@@ -32,7 +32,7 @@ const MethodForm: React.FC = () => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
 
-    const onSubmit = async (data: methodForm) => {
+    const onSubmit = async () => {
         try {
             setLoading(true);
             setError(null);

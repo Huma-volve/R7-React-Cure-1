@@ -22,7 +22,7 @@ const HeaderSec = () => {
         
         {/* Main heading */}
         <div className="text-center px-4">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-regular leading-tight" 
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-regular text-black leading-tight" 
               style={{fontFamily:"var(--font-montserrat)", fontWeight:"var(--weight-regular)"}}>
             Find and book top doctors near you
           </h1>

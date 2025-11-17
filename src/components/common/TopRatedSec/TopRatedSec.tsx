@@ -1,10 +1,10 @@
 import { Button } from "../../ui/button"
-import photoDr from "../../../../public/photoDr.svg"
 import vectorStar from "../../../../public/vectorStar.svg"
 import vectorOcl from "../../../../public/vectorOcl.svg"
 import useTopDoctors from "../../../hooks/useTopDoctors"
 import IsLoading from "../Loading/IsLoading"
 import { Link } from "react-router"
+import photoDr from "../../../../public/photoDr.svg"
 
 // import Heart from '../Heart/Heart'
 
@@ -57,16 +57,16 @@ const TopRatedSec = () => {
                 {/* image and info */}
                 <div  className="flex gap-3 md:gap-4 p-4 md:p-6">
                     <div className="shrink-0">
-                        <img src={doctor.imgUrl } alt="Dr. Robert Johanson" className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full object-cover" />
+                        <img src={doctor.imgUrl && photoDr} alt={doctor.fullName.slice(0, 2)} className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full object-cover" />
                     </div>
                     {/* right side */}
                     <div className="flex flex-col gap-1 flex-1 min-w-0">
-                        <h3 className="font-normal text-lg md:text-xl truncate">{doctor.fullName}</h3>
+                        <h3 className="font-normal text-black text-lg md:text-xl truncate">{doctor.fullName}</h3>
                         {/* <Heart/> */}
                         <p className="font-normal text-xs md:text-sm text-neutral-darker">
                             {doctor.specialistTitle} | {doctor.address}
                         </p>
-                        <div className="flex flex-wrap gap-2 md:gap-4 items-center mt-2">
+                        <div className="flex text-black flex-wrap gap-2 md:gap-4 items-center mt-2">
                             <div className="flex items-center gap-1">
                                 <img src={vectorStar} alt="Rating" className="w-4 h-4" />
                                 <p className="text-sm">{doctor.rating}</p>
@@ -82,7 +82,7 @@ const TopRatedSec = () => {
                 {/* price and hour */}
                 <div className="flex justify-between py-3 px-4 md:px-6 items-center border-t">
                     <div>
-                        <p className="text-sm md:text-base">Price/<span className="text-neutral-darker">hour</span></p>
+                        <p className="text-sm md:text-base text-secondary-defult">Price/<span className="text-neutral-darker">hour</span></p>
                     </div>
                     <div>
                         <p className="text-error-defult font-semibold text-lg md:text-xl">${doctor.price}</p>
