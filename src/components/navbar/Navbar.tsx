@@ -2,6 +2,7 @@ import { Link } from 'react-router';
 import { HamburgerMenu, Notifications, ProfileList } from '../common/navbar';
 import SearchBar from '../common/SearchBar';
 import { Container } from '../ui/Container';
+import ProfileDropdown from '../../pages/Profile/ProfileDropdown';
 
 export default function Navbar() {
     return (
@@ -19,7 +20,8 @@ export default function Navbar() {
                     <div className="sm:hidden flex items-center gap-4">
                         <HamburgerMenu />
                         <Notifications />
-                        <ProfileList />
+                        {/* <ProfileList /> */}
+                        <ProfileDropdown/>
                     </div>
                 </div>
 
@@ -32,7 +34,7 @@ export default function Navbar() {
                 <div className="hidden sm:flex items-center gap-4">
                     <HamburgerMenu />
                     <Notifications />
-                    <ProfileList />
+                   <ProfileDropdown/>
                 </div>
             </Container>
         </nav>

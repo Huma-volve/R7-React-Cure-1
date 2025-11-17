@@ -1,4 +1,5 @@
 import api from "./axios";
+const TOKEN = import.meta.env.VITE_API_TOKEN;
 
 
 export interface Review {
@@ -25,9 +26,21 @@ export interface AddReviewPayload {
 
 /* ----------------------- 🔹 1. Add Reviwe ----------------------- */
 export const addReview = async (payload: AddReviewPayload): Promise<Review> => {
-  const response = await api.post<Review>("/Customer/Reviews/AddReview", payload);
+  // const token = localStorage.getItem("token"); // 
+
+  const response = await api.post<Review>(
+    "/Customer/Reviews/AddReview",
+    payload,
+    {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+      },
+    }
+  );
+
   return response.data;
 };
+
 
 /* ----------------------- 🔹 2. Get all Reviews ----------------------- */
 export const getAllReviews = async (): Promise<Review[]> => {

@@ -3,7 +3,7 @@ import NotificationList from "../../components/ui/Notification/NotificationList"
 export default function NotificationsPage() {
   return (
     <div className=" bg-white px-5 py-12">
-      <div className="max-w-md mx-auto">
+      <div className=" mx-auto">
         {/* <div className="flex items-center gap-3 mb-6">
           <button
             onClick={() => window.history.back()}

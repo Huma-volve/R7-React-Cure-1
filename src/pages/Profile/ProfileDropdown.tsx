@@ -42,7 +42,6 @@ const ProfileDropdown = () => {
   };
 
   const confirmLogout = () => {
-    // هنا ممكن تمسحي التوكن من localStorage مثلاً
     localStorage.removeItem("token");
     setShowLogoutConfirm(false);
     setOpen(false);
@@ -71,12 +70,13 @@ const ProfileDropdown = () => {
     <div className="relative inline-block text-left">
       <button
         onClick={toggleDropdown}
-        className="flex items-center gap-2 bg-white shadow p-2 rounded-full hover:bg-gray-100 transition"
+        className="flex items-center gap-2 bg-white shadow  rounded-full transition"
       >
-        <FaUserCircle className="text-2xl text-gray-600" />
+        {/* <FaUserCircle className="text-2xl text-gray-600" />
         <span className="text-gray-700 font-medium hidden sm:block">
           Profile
-        </span>
+        </span> */}
+        <img src={profile?.imageUrl || defultUser} alt="Profile" loading="lazy" className={"h-12 w-12 rounded-full"}/>
       </button>
 
       <AnimatePresence>
@@ -104,7 +104,7 @@ const ProfileDropdown = () => {
                   {profile.address || "No address"}
                 </p>
               </div>
-              <FaChevronRight className="text-gray-400" />
+              {/* <FaChevronRight className="text-gray-400" /> */}
             </div>
 
             <hr className="my-3 border-gray-200" />
@@ -164,7 +164,7 @@ const ProfileDropdown = () => {
       <AnimatePresence>
         {showLogoutConfirm && (
           <motion.div
-            className="fixed inset-0 bg-opacity-25 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/40 transition-opacity flex items-center justify-center z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

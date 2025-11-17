@@ -54,7 +54,7 @@ const DoctorCard: React.FC<DoctorCardProps> = ({
                     </div>
 
                     {/* Doctor Image */}
-                    <Link to={`/doctors/${id}`} className="shrink-0">
+                    <Link to={`/doctor-details/${id}`} className="shrink-0">
                         <Avatar className="w-[70px] h-[70px] sm:w-[85px] sm:h-20 md:w-[95px] md:h-[90px] rounded-[10px] overflow-hidden cursor-pointer hover:scale-[1.05] transition-transform duration-300">
                             <AvatarImage
                                 className="w-[97px] h-[88px] object-cover"

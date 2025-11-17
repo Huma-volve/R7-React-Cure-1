@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import type { Doctor } from "../../../featuers/doctor/doctorTypes";
+import { Avatar, AvatarFallback, AvatarImage } from '../../../components/ui/avatar';
 import {
     FaMapMarkerAlt,
     FaStar,
@@ -62,11 +63,24 @@ const DoctorHeader: React.FC<DoctorHeaderProps> = ({ doctor }) => {
                                 className="w-full h-full object-cover rounded-full"
                             />
                         )} */}
-                        <img
+                        <Avatar className="w-[70px] h-[70px] sm:w-[85px] sm:h-20 md:w-[95px] md:h-[90px] rounded-[10px] overflow-hidden cursor-pointer hover:scale-[1.05] transition-transform duration-300">
+                            <AvatarImage
+                                className="w-[97px] h-[88px] object-cover"
+                                src={doctor.image && doctorImg}
+                                alt={doctor.fullName}
+                            />
+                            <AvatarFallback className="bg-muted text-muted-foreground">
+                                {doctor.fullName
+                                    .split(' ')
+                                    .map((n: any) => n[0])
+                                    .join('')}
+                            </AvatarFallback>
+                        </Avatar>
+                        {/* <img
                             src={doctor.image || doctorImg}
                             alt={doctor.fullName || "Doctor"}
                             className="w-full h-full object-cover rounded-full"
-                        />
+                        /> */}
                     </div>
 
                     {/* doctor info */}

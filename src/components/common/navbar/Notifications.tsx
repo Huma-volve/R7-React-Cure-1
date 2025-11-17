@@ -1,57 +1,40 @@
-import { Button } from '@/components/ui/button';
+import { Button } from '../../ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuGroup,
     DropdownMenuItem,
-    DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
+    DropdownMenuTrigger,
+} from '../../ui/dropdown-menu';
 import { DropdownMenuLabel } from '@radix-ui/react-dropdown-menu';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
-
-interface NotificationsType {
-    id: number;
-    title: string;
-    message: string;
-    image: string;
-    time: string;
-}
-
-const NotificationsList: NotificationsType[] = [
-    {
-        id: 1,
-        title: 'Upcoming Appointment',
-        message: 'Your appointment with Dr. Smith is confirmed for tomorrow at 10 AM.',
-        image: '/icons/time-quarter.svg',
-        time: '1h'
-    },
-    {
-        id: 2,
-        title: 'Appointment completed',
-        message: 'You have successfully booked your appointment with Dr. Emily Walker.',
-        image: '/icons/solar_check-circle-linear.svg',
-        time: '2h'
-    },
-    {
-        id: 3,
-        title: 'Appointment Cancelled',
-        message: 'You have successfully cancelled your appointment with Dr. David Patel.',
-        image: '/icons/calendar-remove.svg',
-        time: '3h'
-    }
-];
+import { getNotificationsByUser, markNotificationAsRead } from '../.././../featuers/apis/notificationApi';
+import type { NotificationType } from '../.././../featuers/apis/notificationApi';
+import noNotification  from "../../../assets/icons/no-notification.jpg"
 
 const Notifications = () => {
-    const [existNotification, setExistNotification] = useState(false);
-
+    const [notifications, setNotifications] = useState<NotificationType[]>([]);
+    const [loading, setLoading] = useState(true);
+    // const navigate = useNavigate();
+   
     useEffect(() => {
-        if (NotificationsList.length > 0) {
-            setExistNotification(true);
-        } else {
-            setExistNotification(false);
-        }
-    }, [NotificationsList]);
+        const fetchNotifications = async () => {
+            try {
+                const res = await getNotificationsByUser();
+                console.log(res);
+                
+                setNotifications(res || []);
+            } catch (error) {
+                console.error("Error fetching notifications:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchNotifications();
+    }, []);
+
+    const hasNotifications = notifications.length > 0;
 
     return (
         <DropdownMenu>
@@ -59,68 +42,86 @@ const Notifications = () => {
                 <Button
                     variant="outline"
                     className="w-12 cursor-pointer bg-[#F5F6F7] border-0 shadow-none outline-none
-                        focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none
-                        hover:bg-[#E9EAEB] transition-colors duration-200"
+            focus-visible:ring-0 focus-visible:ring-offset-0 hover:bg-[#E9EAEB] transition-colors duration-200"
                 >
-                    <img src="/icons/Notifications.svg" alt="" />
+                    <img src="/icons/Notifications.svg" alt="Notifications" />
                 </Button>
             </DropdownMenuTrigger>
 
             <DropdownMenuContent
-                className="w-75 sm:w-100 bg-white relative z-9999 rounded-xl border-0 mt-2 mr-3 p-0"
+                className="w-75 sm:w-100 bg-white relative z-50 rounded-xl border-0 mt-2 mr-3 p-0"
                 align="center"
                 side="bottom"
-                sideOffset={10}
-            >
-                {existNotification ? (
+                sideOffset={10}>
+                {loading ? (
+                    <div className="flex justify-center items-center p-5 text-gray-500">
+                        Loading notifications...
+                    </div>
+                ) : hasNotifications ? (
+ 
+                    
                     <>
-                        <DropdownMenuLabel className="bg-[#F5F6F7] font-medium text-center p-4">
-                            <Link to="/notificationpage">Your Notification</Link>
+                        <DropdownMenuLabel className="bg-[#93b4de] font-medium text-center p-8 ">
+                            <Link to="/notification">Your Notifications  </Link>
                         </DropdownMenuLabel>
                         <DropdownMenuGroup>
-                            {NotificationsList.map((notification) => (
-                                <Link
-                                    to={`/notifications/${notification.id}`}
-                                    key={notification.id}
-                                >
-                                    <DropdownMenuItem className="mb-2 p- cursor-pointer hover:bg-gray-300! transition-colors justify-between">
+                            {notifications.map((notification) => {
+                                const createdAt = notification.createdAt
+                                    ? new Date(notification.createdAt).toLocaleString()
+                                    : "";
+                                return (
+                                    <DropdownMenuItem
+                                        key={notification.id}
+                                        className={`mb-2 cursor-pointer hover:bg-gray-100 transition-colors justify-between p-3 rounded-lg ${notification.isRead ? "opacity-70" : "bg-gray-100"}`}
+                                        onClick={async () => {
+                                            try {
+                                                await markNotificationAsRead(notification.id);
+                                                setNotifications((prev) =>
+                                                    prev.map((item) =>
+                                                        item.id === notification.id
+                                                            ? { ...item, isRead: true }
+                                                            : item
+                                                    )
+                                                );
+                                            } catch (e) {
+                                                console.error("Failed to mark as read", e);
+                                            }
+                                        }}
+                                    >
                                         <div className="flex items-center gap-2">
-                                            <img
-                                                src={notification.image}
-                                                alt={notification.title}
-                                            />
-                                            <div className="flex justify-center flex-col gap-1">
+                                            <div className="flex flex-col gap-1">
                                                 <p
                                                     style={{ fontFamily: 'var(--font-secondary)' }}
-                                                    className="sm:text-[16px] text-[14px]"
+                                                    className="sm:text-[16px] text-[14px] font-medium"
                                                 >
-                                                    {notification.title}
+                                                    {notification.title ?? "Notification"}
                                                 </p>
-                                                <p className="text-[14px] text-(--color-text) truncate max-w-[150px] sm:max-w-[250px]">
-                                                    {notification.message}
+                                                <p className="text-[14px] text-gray-600 truncate max-w-[200px] sm:max-w-[250px]">
+                                                    {notification.content}
                                                 </p>
                                             </div>
                                         </div>
-                                        <p>{notification.time}</p>
+                                        <div className="flex items-center gap-2">
+                                            <p className="text-gray-400 text-xs whitespace-nowrap">
+                                                {createdAt}
+                                            </p>
+                                            {!notification.isRead && (
+                                                <span className="inline-block w-2 h-2 rounded-full bg-blue-500" />
+                                            )}
+                                        </div>
                                     </DropdownMenuItem>
-                                </Link>
-                            ))}
+                                );
+                            })}
                         </DropdownMenuGroup>
                     </>
                 ) : (
-                    <div className="flex items-center justify-center p-5 flex-col">
-                        <img
-                            src="/image/Notifications-Empty.png"
-                            alt="notifications Empty"
-                            className="mb-3"
-                        />
-                        <p
-                            className="text-2xl text-black mb-1"
-                            style={{ fontFamily: 'var(--font-secondary)' }}
-                        >
-                            Nothing to display here!
-                        </p>
-                        <p className="text-(--color-text) text-[14px]">
+                    <div className="flex items-center justify-center p-5 flex-col mb-2">
+                        <Link to="/notification" className=' text-blue-500 text-sm text-center'>
+                            Your Notifications
+                        </Link>
+                        <img src={noNotification} alt="" className='p-3 h-25 w-25'/>
+                        <p className="text-lg font-semibold mb-1">Nothing to display here!</p>
+                        <p className="text-gray-500 text-sm text-center">
                             We’ll notify you once we have new notifications.
                         </p>
                     </div>
