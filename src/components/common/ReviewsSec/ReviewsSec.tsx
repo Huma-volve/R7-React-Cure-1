@@ -92,7 +92,7 @@ const ReviewsSec = () => {
         </div>
 
         {/* Review Text */}
-        <p className="text-sm md:text-base lg:text-lg text-center text-gray-600 max-w-2xl mx-auto mb-8 md:mb-12 px-4 leading-relaxed">
+        <p className="text-sm md:text-base lg:text-lg text-neutral-darker text-center text-gray-600 max-w-2xl mx-auto mb-8 md:mb-12 px-4 leading-relaxed">
           "Quick and easy booking! I found a <br /> great dermatologist near me and <br /> booked an appointment in just a <br /> few minutes."
         </p>
 

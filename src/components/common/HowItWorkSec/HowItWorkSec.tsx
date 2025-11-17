@@ -7,7 +7,7 @@ const HowItWorkSec = () => {
     <section className="py-8 md:py-12 lg:py-16 px-4 sm:px-6 md:px-8">
       {/* Section Title */}
       <div className="pb-8 md:pb-10 lg:pb-12">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-center font-normal">
+        <h1 className="text-2xl text-secondary-defult sm:text-3xl md:text-4xl lg:text-5xl text-center font-normal">
           How it works
         </h1>
       </div>

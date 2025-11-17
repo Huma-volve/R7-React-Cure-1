@@ -16,7 +16,7 @@ const FindNearSec = () => {
         {/* Left Content */}
         <div className="flex flex-col gap-4 md:gap-6 w-full lg:w-1/2 text-center lg:text-left">
           {/* Title */}
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal leading-tight">
+          <h1 className="text-2xl text-black sm:text-3xl md:text-4xl lg:text-5xl font-normal leading-tight">
             Find Care Near You in Seconds
           </h1>
           

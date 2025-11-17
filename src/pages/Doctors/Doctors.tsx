@@ -15,7 +15,6 @@ const {allDoctors} = useAllDoctors()
     const {
         searchTerm,
         setSearchTerm,
-        filteredDoctors,
         selectedSpecialty,
         specialties,
         handleSpecialtySelect,
